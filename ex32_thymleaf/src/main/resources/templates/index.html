@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Index</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Import the Materialize Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+
+<!-- Import fonts from Googlefonts-->
+<link
+	href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+	rel="stylesheet">
+
+<!-- Compiled and minified JavaScript -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+	
+</script>
+
+<style>
+h1 {
+	color: #424242;
+	font-weight: bold;
+	font-family: 'Indie Flower', cursive;
+}
+
+div.input-field>label {
+	color: #424242;
+}
+
+div.input-field>i {
+	color: #311b92;
+}
+
+html {
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background: linear-gradient(to right, #9575cd, #0097a7) no-repeat 100%;
+	margin: 0px;
+}
+</style>
+
+</head>
+<body>
+
+	<div class="container">
+		<div class="#9fa8da indigo lighten-3">
+			<h1 class="center-align">Course Selection:</h1>
+		</div>
+
+		<div class="card-panel #bbdefb blue lighten-4">
+			<table class="highlight centered">
+
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Prefix</th>
+						<th>Code</th>
+						<th>Name</th>
+					</tr>
+				</thead>
+				
+				<!-- The ${} retrieves the attribute values of the CourseList Object-->
+				<tr th:each="aCourse:${courseList}">
+					<td th:text="${aCourse.id}">55</td>
+					<td th:text="${aCourse.prefix}">PROG</td>
+					<td th:text="${aCourse.code}">1305</td>
+					<td th:text="${aCourse.name}">Programming</td>
+				</tr>
+
+			</table>
+		</div>
+		<br>
+
+		<div class="card-panel #bbdefb blue lighten-4">
+			<form method="post" action="#" th:action="@{/addCourse}">
+				<div>
+					<div class=input-field>
+						<i class="material-icons prefix">info</i> <input id="id"
+							type="number" name="id" /><br> <label for="id">ID:</label>
+					</div>
+
+					<div class=input-field>
+						<i class="material-icons prefix">school</i> <input id="prefix"
+							type="text" name="prefix" /><br> <label for="prefix">Prefix:</label>
+					</div>
+					<div class=input-field>
+						<i class="material-icons prefix">settings_ethernet</i> <input
+							id="code" type="number" name="code" /><br> <label
+							for="code">Code:</label>
+					</div>
+					<div class=input-field>
+						<i class="material-icons prefix">sort_by_alpha</i> <input
+							id="name" type="text" name="name" /><br> <label for="name">Name:</label>
+					</div>
+
+
+					<button class="btn waves-effect waves-red cyan pulse" type="submit"
+						name="action" onclick="reloadP()">
+						Add Course! <i class="material-icons right">send</i>
+					</button>
+
+					<!-- This function is to use the Materialize UI js on a button click after the first initial window load.  -->
+					<script type="text/javascript">
+					function myFunction() {
+						M.toast({html: 'Course Added!'})
+					}
+					
+					window.onload = function() {
+					    var reloading = sessionStorage.getItem("reloading");
+					    if (reloading) {
+					        sessionStorage.removeItem("reloading");
+					        myFunction();
+					    }
+					}
+					
+					function reloadP() {
+					    sessionStorage.setItem("reloading", "true");
+					    document.location.reload();
+					}
+					</script>
+
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
